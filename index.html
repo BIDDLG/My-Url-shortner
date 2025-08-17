@@ -1,48 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Website Designer Tool</title>
-    <!-- Add your CSS file link here -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Website Designer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Design Your Website</h1>
 
-    <form id="design-form">
-        <!-- == HEADER SECTION == -->
-        <h2>Header</h2>
-        <label for="header-text">Header Title:</label>
-        <input type="text" id="header-text" value="My Awesome Website">
-
-        <label for="header-bg-color">Header Background Color:</label>
-        <input type="color" id="header-bg-color" value="#4a90e2">
+    <div class="container">
+        <h1>Instant Website Designer</h1>
+        <p>Fill out the options below and click 'Generate' to get your website code!</p>
         
-        <label for="header-text-color">Header Text Color:</label>
-        <input type="color" id="header-text-color" value="#ffffff">
+        <div class="form-section">
+            <h2>Header</h2>
+            <label for="header-text">Header Title:</label>
+            <input type="text" id="header-text" value="My Awesome Website">
 
-        <!-- == SEARCH BAR SECTION == -->
-        <h2>Content</h2>
-        <label for="add-searchbar">Add a Search Bar?</label>
-        <input type="checkbox" id="add-searchbar" checked>
+            <label for="header-bg-color">Header Background Color:</label>
+            <input type="color" id="header-bg-color" value="#4a90e2">
+            
+            <label for="header-text-color">Header Text Color:</label>
+            <input type="color" id="header-text-color" value="#ffffff">
+        </div>
+        
+        <div class="form-section">
+            <h2>Content</h2>
+            <label for="add-searchbar">
+                <input type="checkbox" id="add-searchbar" checked>
+                Add a Search Bar?
+            </label>
+        </div>
+        
+        <div class="form-section">
+            <h2>Footer</h2>
+            <label for="footer-text">Footer Text:</label>
+            <input type="text" id="footer-text" value="© 2025 My Website. All rights reserved.">
 
-        <!-- == FOOTER SECTION == -->
-        <h2>Footer</h2>
-        <label for="footer-text">Footer Text:</label>
-        <input type="text" id="footer-text" value="© 2025 My Website. All rights reserved.">
+            <label for="footer-bg-color">Footer Background Color:</label>
+            <input type="color" id="footer-bg-color" value="#333333">
 
-        <label for="footer-bg-color">Footer Background Color:</label>
-        <input type="color" id="footer-bg-color" value="#333333">
+            <label for="footer-text-color">Footer Text Color:</label>
+            <input type="color" id="footer-text-color" value="#ffffff">
+        </div>
 
-        <label for="footer-text-color">Footer Text Color:</label>
-        <input type="color" id="footer-text-color" value="#ffffff">
-    </form>
-
-    <button id="generate-btn">Generate Website Code</button>
-
-    <hr>
-    
-    <h2>Generated Code</h2>
-    <textarea id="output-code" readonly placeholder="Your website code will appear here..."></textarea>
-    <button id="copy-btn">Copy Code</button>
+        <button id="generate-btn">Generate Website Code</button>
+        
+        <div class="output-section">
+            <h2>Your Generated HTML Code</h2>
+            <textarea id="output-code" readonly placeholder="Your website code will appear here..."></textarea>
+            <button id="copy-btn">Copy Code</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
