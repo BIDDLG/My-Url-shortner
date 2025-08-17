@@ -3,56 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instant Website Designer</title>
+    <title>CSS Button Generator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="main-container">
 
-    <div class="container">
-        <h1>Instant Website Designer</h1>
-        <p>Fill out the options below and click 'Generate' to get your website code!</p>
-        
-        <div class="form-section">
-            <h2>Header</h2>
-            <label for="header-text">Header Title:</label>
-            <input type="text" id="header-text" value="My Awesome Website">
+        <!-- ===== LEFT SIDEBAR (PRESETS) ===== -->
+        <!-- Isko hum baad mein JS se add karenge -->
+        <div class="presets-panel">
+            <h2>Presets</h2>
+            <div id="presets-container">
+                <!-- Preset buttons will be added here by JS -->
+            </div>
+        </div>
 
-            <label for="header-bg-color">Header Background Color:</label>
-            <input type="color" id="header-bg-color" value="#4a90e2">
+        <!-- ===== CENTER AREA (PREVIEW & CODE) ===== -->
+        <div class="preview-area">
+            <h1>CSS Button Generator</h1>
+            <div class="button-preview-wrapper">
+                <button id="preview-button">Button</button>
+            </div>
+            <div class="code-output-wrapper">
+                <pre><code id="css-code-output">/* Your CSS code will appear here */</code></pre>
+                <button id="copy-code-btn">Copy CSS</button>
+            </div>
+        </div>
+
+        <!-- ===== RIGHT SIDEBAR (CONTROLS) ===== -->
+        <div class="controls-panel">
+            <h2>Customize Your Button</h2>
             
-            <label for="header-text-color">Header Text Color:</label>
-            <input type="color" id="header-text-color" value="#ffffff">
-        </div>
-        
-        <div class="form-section">
-            <h2>Content</h2>
-            <label for="add-searchbar">
-                <input type="checkbox" id="add-searchbar" checked>
-                Add a Search Bar?
-            </label>
-        </div>
-        
-        <div class="form-section">
-            <h2>Footer</h2>
-            <label for="footer-text">Footer Text:</label>
-            <input type="text" id="footer-text" value="© 2025 My Website. All rights reserved.">
+            <fieldset>
+                <legend>Text</legend>
+                <input type="text" id="btn-text" value="Button">
+                <input type="color" id="text-color" value="#ffffff">
+            </fieldset>
 
-            <label for="footer-bg-color">Footer Background Color:</label>
-            <input type="color" id="footer-bg-color" value="#333333">
+            <fieldset>
+                <legend>Sizing (Padding)</legend>
+                <label>Vertical: <span id="v-padding-value">15px</span></label>
+                <input type="range" id="v-padding" min="0" max="50" value="15">
+                <label>Horizontal: <span id="h-padding-value">30px</span></label>
+                <input type="range" id="h-padding" min="0" max="100" value="30">
+            </fieldset>
 
-            <label for="footer-text-color">Footer Text Color:</label>
-            <input type="color" id="footer-text-color" value="#ffffff">
+            <fieldset>
+                <legend>Border & Radius</legend>
+                <label>Border Width: <span id="border-width-value">2px</span></label>
+                <input type="range" id="border-width" min="0" max="10" value="2">
+                <label>Border Radius: <span id="border-radius-value">8px</span></label>
+                <input type="range" id="border-radius" min="0" max="50" value="8">
+                <label>Border Color:</label>
+                <input type="color" id="border-color" value="#2980b9">
+            </fieldset>
+            
+            <fieldset>
+                <legend>Background</legend>
+                <input type="color" id="bg-color" value="#3498db">
+            </fieldset>
+
+            <fieldset>
+                <legend>Box Shadow</legend>
+                <label>X Offset: <span id="shadow-x-value">0px</span></label>
+                <input type="range" id="shadow-x" min="-20" max="20" value="0">
+                <label>Y Offset: <span id="shadow-y-value">4px</span></label>
+                <input type="range" id="shadow-y" min="-20" max="20" value="4">
+                <label>Blur: <span id="shadow-blur-value">5px</span></label>
+                <input type="range" id="shadow-blur" min="0" max="40" value="5">
+                <label>Shadow Color:</label>
+                <input type="color" id="shadow-color" value="#000000" data-alpha="true">
+            </fieldset>
         </div>
 
-        <button id="generate-btn">Generate Website Code</button>
-        
-        <div class="output-section">
-            <h2>Your Generated HTML Code</h2>
-            <textarea id="output-code" readonly placeholder="Your website code will appear here..."></textarea>
-            <button id="copy-btn">Copy Code</button>
-        </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
