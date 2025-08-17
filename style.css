@@ -1,21 +1,17 @@
-/* --- UNIVERSAL STYLES --- */
+/* --- UNIVERSAL STYLES (Same as before) --- */
 :root {
     --primary-bg: #f4f6f9;
     --panel-bg: #ffffff;
     --border-color: #e1e5ea;
     --text-color: #333;
-    --primary-color: #3498db;
 }
-
 * { box-sizing: border-box; }
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     margin: 0;
     background-color: var(--primary-bg);
     color: var(--text-color);
 }
-
 .main-header {
     background: var(--panel-bg);
     text-align: center;
@@ -23,71 +19,51 @@ body {
     border-bottom: 1px solid var(--border-color);
 }
 
-/* --- MAIN LAYOUT (FLEXBOX) --- */
+/* --- DESKTOP LAYOUT (Default) --- */
 .main-container {
     display: flex;
-    flex-wrap: wrap; /* Important for responsiveness */
     padding: 15px;
 }
-
-/* --- PANELS --- */
+.presets-panel, .controls-panel { flex: 1; margin: 10px; }
+.preview-area { flex: 2; margin: 10px; }
 .presets-panel, .preview-area, .controls-panel {
     background: var(--panel-bg);
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    margin: 10px;
     padding: 20px;
 }
+.mobile-preview-bar { display: none; /* Hide on desktop */ }
 
-.presets-panel { flex: 1 1 200px; /* Flex-grow, flex-shrink, flex-basis */ }
-.preview-area { flex: 2 1 400px; }
-.controls-panel { flex: 1 1 280px; }
-
-h2 { margin-top: 0; }
-
-/* --- PRESETS PANEL --- */
+/* --- ALL OTHER STYLES (Almost same as before) --- */
 #presets-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
 }
 .preset-btn {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--border-color);
-    cursor: pointer;
-    transition: transform 0.1s ease;
+    padding: 10px; border-radius: 5px; border: 1px solid var(--border-color);
+    cursor: pointer; transition: transform 0.1s ease;
 }
 .preset-btn:hover { transform: scale(1.05); }
-
-/* --- PREVIEW AREA --- */
-.button-preview-wrapper {
-    min-height: 200px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: linear-gradient(45deg, #f9f9f9 25%, transparent 25%), linear-gradient(-45deg, #f9f9f9 25%, transparent 25%);
-    background-size: 20px 20px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    margin-bottom: 20px;
+.button-preview-wrapper.desktop-preview {
+    min-height: 200px; width: 100%; display: flex; align-items: center;
+    justify-content: center; background-image: linear-gradient(45deg, #f9f9f9 25%, transparent 25%), linear-gradient(-45deg, #f9f9f9 25%, transparent 25%);
+    background-size: 20px 20px; border: 1px solid var(--border-color);
+    border-radius: 8px; margin-bottom: 20px;
 }
-#preview-button { transition: all 0.2s ease-out; }
-
+/* Style for both preview buttons */
+#preview-button-desktop, #preview-button-mobile {
+    transition: all 0.2s ease-out;
+    font-size: 16px;
+    font-weight: bold;
+}
 #css-code-output {
-    display: block; width: 100%; min-height: 150px;
-    background: #2d2d2d; color: #a9b7c6; padding: 15px;
-    border-radius: 5px; font-size: 14px; white-space: pre-wrap;
-    border: none;
+    display: block; width: 100%; min-height: 150px; background: #2d2d2d;
+    color: #a9b7c6; padding: 15px; border-radius: 5px;
+    font-size: 14px; white-space: pre-wrap; border: none;
 }
 #copy-code-btn {
-    width: 100%; padding: 12px; margin-top: 10px;
-    background: #27ae60; color: white; border: none;
-    border-radius: 5px; cursor: pointer; font-size: 16px;
+    width: 100%; padding: 12px; margin-top: 10px; background: #27ae60;
+    color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;
 }
-
-/* --- CONTROLS PANEL --- */
 .control-group { margin-bottom: 20px; }
 .control-group label { display: block; margin-bottom: 8px; font-weight: 500; }
 .control-group input[type="text"], .control-group input[type="color"] {
@@ -97,21 +73,39 @@ h2 { margin-top: 0; }
 .slider-group label { display: flex; justify-content: space-between; }
 .slider-group input[type="range"] { width: 100%; margin-top: 5px; }
 
-
-/* --- RESPONSIVE DESIGN (MEDIA QUERIES) --- */
-
-/* For Tablets (e.g., screen width <= 1024px) */
-@media (max-width: 1024px) {
-    .main-container { flex-direction: column; }
-    .presets-panel { order: 1; /* First */ }
-    .preview-area { order: 2; /* Second */ }
-    .controls-panel { order: 3; /* Third */ }
-}
-
-/* For Mobile Phones (e.g., screen width <= 600px) */
-@media (max-width: 600px) {
-    .main-container { padding: 5px; }
-    .presets-panel, .preview-area, .controls-panel { margin: 5px; padding: 15px; }
-    #presets-container { grid-template-columns: 1fr 1fr; }
-    h1 { font-size: 1.5rem; }
+/* --- MOBILE & TABLET RESPONSIVE STYLES (The Magic) --- */
+@media (max-width: 900px) {
+    .main-container {
+        flex-direction: column;
+        padding-bottom: 100px; /* Space for the floating bar */
+    }
+    /* Hide the desktop preview and show the mobile one */
+    .desktop-preview {
+        display: none;
+    }
+    .mobile-preview-bar {
+        display: flex;
+        position: fixed; /* Chipka hua rahega */
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px); /* Blurry background */
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid var(--border-color);
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    /* On mobile, all panels are full width */
+    .presets-panel, .preview-area, .controls-panel {
+        flex: 1 1 100%;
+        margin: 8px;
+    }
+    /* Change the order for better flow on mobile */
+    .controls-panel { order: 1; }
+    .presets-panel { order: 2; }
+    .preview-area { order: 3; } /* This now only contains the code */
 }
