@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro CSS Button Generator</title>
+    <title>Mobile-First CSS Button Generator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,22 +12,19 @@
     </header>
 
     <div class="main-container">
-
         <!-- ===== LEFT SIDEBAR (PRESETS) ===== -->
         <aside class="presets-panel">
             <h2>Presets</h2>
-            <div id="presets-container">
-                <!-- Preset buttons will be added here by JS -->
-            </div>
+            <div id="presets-container"></div>
         </aside>
 
         <!-- ===== CENTER AREA (PREVIEW & CODE) ===== -->
         <main class="preview-area">
-            <div class="button-preview-wrapper">
-                <button id="preview-button">Button</button>
+            <div class="button-preview-wrapper desktop-preview">
+                <button id="preview-button-desktop">Button</button>
             </div>
             <div class="code-output-wrapper">
-                <pre><code id="css-code-output">/* Your CSS code will appear here */</code></pre>
+                <pre><code id="css-code-output">/* CSS will appear here */</code></pre>
                 <button id="copy-code-btn">Copy CSS</button>
             </div>
         </main>
@@ -35,7 +32,6 @@
         <!-- ===== RIGHT SIDEBAR (CONTROLS) ===== -->
         <aside class="controls-panel">
             <h2>Customize</h2>
-            
             <div class="control-group">
                 <label for="btn-text">Text</label>
                 <input type="text" id="btn-text" value="Button">
@@ -44,7 +40,8 @@
                 <label for="text-color">Text Color</label>
                 <input type="color" id="text-color" value="#ffffff">
             </div>
-            <div class="control-group">
+            <!-- ... (baaki saare controls waise hi rahenge) ... -->
+             <div class="control-group">
                 <label for="bg-color">Background Color</label>
                 <input type="color" id="bg-color" value="#3498db">
             </div>
@@ -73,8 +70,13 @@
                 <input type="color" id="shadow-color" value="#000000">
             </div>
         </aside>
-
     </div>
+
+    <!-- ===== FLOATING MOBILE PREVIEW (THE MAGIC) ===== -->
+    <div class="mobile-preview-bar">
+        <button id="preview-button-mobile">Button</button>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
