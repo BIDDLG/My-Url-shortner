@@ -1,11 +1,12 @@
 // PART 1: SELECT ALL ELEMENTS
 const controlsPanel = document.querySelector('.controls-panel');
-const previewButton = document.getElementById('preview-button');
+const previewButtonDesktop = document.getElementById('preview-button-desktop');
+const previewButtonMobile = document.getElementById('preview-button-mobile');
 const cssCodeOutput = document.getElementById('css-code-output');
 const copyCodeBtn = document.getElementById('copy-code-btn');
 const presetsContainer = document.getElementById('presets-container');
 
-// A big object to hold all our input elements
+// A big object to hold all our input elements (Same as before)
 const inputs = {
     btnText: document.getElementById('btn-text'),
     textColor: document.getElementById('text-color'),
@@ -18,7 +19,7 @@ const inputs = {
     shadowColor: document.getElementById('shadow-color'),
 };
 
-// --- PRESETS DATA (10 Buttons!) ---
+// --- PRESETS DATA (Same 10 buttons) ---
 const presets = [
     { name: 'Primary', bgColor: '#3498db', textColor: '#ffffff', shadowY: 4, borderRadius: 8 },
     { name: 'Success', bgColor: '#2ecc71', textColor: '#ffffff', shadowY: 4, borderRadius: 8 },
@@ -34,28 +35,31 @@ const presets = [
 
 // PART 2: CORE FUNCTIONS
 
-// Function to generate the CSS and update the button style
+// Function to generate the CSS and update BOTH button styles
 function updateStyles() {
     const v = {};
     for (const key in inputs) {
         v[key] = inputs[key].value;
     }
+    
+    // An array of the two buttons to apply styles to both
+    const previewButtons = [previewButtonDesktop, previewButtonMobile];
 
-    const shadow = `${v.shadowY}px ${v.shadowBlur}px ${v.shadowColor}`;
-    // Special case for Neumorphic style shadow
-    if (v.bgColor === '#e0e5ec') {
-        previewButton.style.boxShadow = `7px 7px 15px #a3b1c6, -7px -7px 15px #ffffff`;
-    } else {
-        previewButton.style.boxShadow = `0px ${v.shadowY}px ${v.shadowBlur}px ${v.shadowColor}`;
-    }
-
-    // Apply styles
-    previewButton.innerText = v.btnText;
-    previewButton.style.color = v.textColor;
-    previewButton.style.background = v.bgColor; // Works for both color and gradient
-    previewButton.style.padding = `${v.vPadding}px ${v.hPadding}px`;
-    previewButton.style.borderRadius = `${v.borderRadius}px`;
-    previewButton.style.border = 'none'; // Simplified for this version
+    previewButtons.forEach(button => {
+        button.innerText = v.btnText;
+        button.style.color = v.textColor;
+        button.style.background = v.bgColor;
+        button.style.padding = `${v.vPadding}px ${v.hPadding}px`;
+        button.style.borderRadius = `${v.borderRadius}px`;
+        button.style.border = 'none';
+        
+        // Special shadow for Neumorphic
+        if (v.bgColor === '#e0e5ec') {
+            button.style.boxShadow = `5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff`;
+        } else {
+            button.style.boxShadow = `0px ${v.shadowY}px ${v.shadowBlur}px ${v.shadowColor}`;
+        }
+    });
 
     // Update slider value displays
     ['vPadding', 'hPadding', 'borderRadius', 'shadowY', 'shadowBlur'].forEach(id => {
@@ -65,22 +69,22 @@ function updateStyles() {
     generateCSSCode();
 }
 
-// Function to generate the final CSS code for the user
+// Function to generate the final CSS code (Same as before)
 function generateCSSCode() {
     const css = `
 .my-button {
-    background: ${previewButton.style.background};
-    color: ${previewButton.style.color};
-    padding: ${previewButton.style.padding};
-    border-radius: ${previewButton.style.borderRadius};
-    border: ${previewButton.style.border};
-    box-shadow: ${previewButton.style.boxShadow};
+    background: ${previewButtonDesktop.style.background};
+    color: ${previewButtonDesktop.style.color};
+    padding: ${previewButtonDesktop.style.padding};
+    border-radius: ${previewButtonDesktop.style.borderRadius};
+    border: ${previewButtonDesktop.style.border};
+    box-shadow: ${previewButtonDesktop.style.boxShadow};
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: bold;
     text-align: center;
     transition: all 0.2s ease;
 }
-
 .my-button:hover {
     transform: translateY(-2px);
     box-shadow: 0px ${parseInt(inputs.shadowY.value) + 2}px ${parseInt(inputs.shadowBlur.value) + 4}px ${inputs.shadowColor.value};
@@ -89,17 +93,15 @@ function generateCSSCode() {
     cssCodeOutput.textContent = css.trim();
 }
 
-// Function to apply a preset to the controls
+// Function to apply a preset (Same as before)
 function applyPreset(preset) {
-    // A simple way to merge preset values with current input values
     const newValues = {
         bgColor: preset.bgColor,
         textColor: preset.textColor,
-        shadowY: preset.shadowY,
-        borderRadius: preset.borderRadius,
+        shadowY: preset.shadowY || 4,
+        borderRadius: preset.borderRadius || 8,
         shadowColor: preset.shadowColor || '#000000',
     };
-
     for (const key in newValues) {
         if (inputs[key]) {
             inputs[key].value = newValues[key];
@@ -108,12 +110,9 @@ function applyPreset(preset) {
     updateStyles();
 }
 
-// PART 3: EVENT LISTENERS AND INITIALIZATION
-
-// Use a single listener on the panel for performance
+// PART 3: EVENT LISTENERS AND INITIALIZATION (Same as before)
 controlsPanel.addEventListener('input', updateStyles);
 
-// Copy button functionality
 copyCodeBtn.addEventListener('click', () => {
     navigator.clipboard.writeText(cssCodeOutput.textContent).then(() => {
         copyCodeBtn.innerText = 'Copied!';
@@ -121,7 +120,6 @@ copyCodeBtn.addEventListener('click', () => {
     });
 });
 
-// Create and append preset buttons on page load
 document.addEventListener('DOMContentLoaded', () => {
     presets.forEach(preset => {
         const btn = document.createElement('button');
